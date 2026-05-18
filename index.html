@@ -17,6 +17,20 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--navy);borde
 .nav-links{display:flex;gap:0;}
 .nav-links a{color:rgba(255,255,255,.72);text-decoration:none;font-family:var(--serif-en);font-size:14px;letter-spacing:.05em;padding:0 12px;height:58px;display:flex;align-items:center;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .2s,border-color .2s;cursor:pointer;white-space:nowrap;}
 .nav-links a:hover,.nav-links a.active{color:#fff;border-bottom-color:var(--gold);}
+/* 햄버거 버튼 */
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;cursor:pointer;padding:4px;background:none;border:none;}
+.nav-hamburger span{display:block;height:2px;background:#fff;border-radius:2px;transition:all .25s;}
+.nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-hamburger.open span:nth-child(2){opacity:0;}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+/* 모바일 드롭다운 */
+@media(max-width:768px){
+  .nav-hamburger{display:flex;}
+  .nav-links{display:none;position:fixed;top:58px;left:0;right:0;background:var(--navy);flex-direction:column;border-bottom:2px solid var(--gold);max-height:calc(100vh - 58px);overflow-y:auto;}
+  .nav-links.open{display:flex;}
+  .nav-links a{height:auto;padding:14px 24px;font-size:15px;border-bottom:1px solid rgba(255,255,255,.08);border-left:3px solid transparent;margin-bottom:0;}
+  .nav-links a:hover,.nav-links a.active{border-bottom:1px solid rgba(255,255,255,.08);border-left-color:var(--gold);background:rgba(255,255,255,.05);}
+}
 .page{display:none;min-height:calc(100vh - 58px);margin-top:58px;}
 .page.active{display:block;}
 /* HOME HERO */
@@ -51,12 +65,38 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--navy);borde
 .section-header{display:flex;align-items:baseline;gap:12px;margin-bottom:30px;padding-bottom:12px;border-bottom:1px solid var(--border);}
 .subsection-label{font-family:var(--serif-en);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;}
-@media(max-width:860px){.about-grid{grid-template-columns:1fr;}.home-hero-inner{flex-direction:column;}.hero-right{flex-direction:row;flex-wrap:wrap;justify-content:center;}.home-bio-inner{grid-template-columns:1fr;}.bio-col{border-right:none;border-bottom:1px solid var(--border);}.bio-col:last-child{border-bottom:none;}.nav-links a{padding:0 7px;font-size:12px;}}
+@media(max-width:860px){
+  .about-grid{grid-template-columns:1fr;}
+  .home-hero-inner{flex-direction:column;align-items:center;}
+  .hero-left{max-width:100%;text-align:center;}
+  .home-divider{margin:18px auto;}
+  .home-tags{justify-content:center;}
+  .hero-right{flex-direction:row;flex-wrap:wrap;justify-content:center;}
+  .home-bio-inner{grid-template-columns:1fr;}
+  .bio-col{border-right:none;border-bottom:1px solid var(--border);}
+  .bio-col:last-child{border-bottom:none;}
+}
+@media(max-width:600px){
+  .home-hero{padding:40px 1.2rem 36px;}
+  .home-name-ko{font-size:32px;}
+  .home-name-en{font-size:19px;}
+  .profile-photo{width:160px;height:160px;}
+  .bio-col{padding:30px 20px;}
+  .inner-page{padding:36px 1rem 60px;}
+  .pub-title-ko,.talk-title,.project-title,.course-name-ko{font-size:17px;}
+  .pub-title-en,.talk-venue,.project-meta,.course-name-en{font-size:15px;}
+  .pub-authors,.talk-authors{font-size:15px;}
+  .course-row{flex-wrap:wrap;gap:6px;}
+  .course-code{width:auto;}
+  .timeline-year{width:80px;font-size:12px;}
+  .students-grid{grid-template-columns:1fr;}
+}
 .timeline{display:flex;flex-direction:column;}
 .timeline-item{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--border);}
 .timeline-item:last-child{border-bottom:none;}
 .timeline-year{flex-shrink:0;width:104px;font-family:var(--serif-en);font-size:13px;color:var(--text-faint);padding-top:2px;font-style:italic;}
 .timeline-role{font-size:14.5px;font-weight:500;color:var(--navy);line-height:1.4;}
+.timeline-role-en{font-family:var(--serif-en);font-size:12px;color:var(--text-faint);font-style:italic;font-weight:400;margin-left:5px;}
 .timeline-place{font-size:13.5px;color:var(--text-muted);font-family:var(--serif-en);font-style:italic;}
 .award-list{display:flex;flex-direction:column;}
 .award-item{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--border);}
@@ -100,12 +140,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--navy);borde
 .talk-venue{font-size:17px;color:#555;font-family:var(--serif-en);font-style:italic;}
 /* STUDENTS */
 .students-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;}
-.student-card{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--gold);padding:18px 20px;border-radius:2px;}
+.student-card{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--gold);padding:18px 20px;border-radius:2px;overflow:hidden;min-width:0;}
 .student-name{font-size:20px;font-weight:500;color:var(--navy);}
 .student-degree{font-family:var(--serif-en);font-size:16px;color:var(--text-faint);font-style:italic;margin-top:2px;}
 .student-interest{font-size:13.5px;color:var(--text-muted);margin-top:9px;line-height:1.65;border-top:1px solid var(--border);padding-top:9px;}
-.student-interest-ko{font-size:17px;font-weight:500;color:var(--navy);margin-bottom:3px;}
-.student-interest-en{font-family:var(--serif-en);font-size:16px;color:var(--text-muted);font-style:italic;}
+.student-interest-ko{font-size:15px;font-weight:500;color:var(--navy);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em;}
+.student-interest-en{font-family:var(--serif-en);font-size:13px;color:var(--text-muted);font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em;}
 /* PROJECTS */
 .project-item{padding:13px 0;border-bottom:1px solid var(--border);display:flex;gap:14px;align-items:flex-start;}
 .project-item:last-child{border-bottom:none;}
@@ -133,7 +173,10 @@ footer{background:var(--navy);border-top:2px solid rgba(181,146,42,.3);padding:3
 <body>
 <nav><div class="nav-inner">
   <span class="nav-name" onclick="showPage('home')">Jeonghee Myeong <span>| Korean Linguistics</span></span>
-  <div class="nav-links">
+  <button class="nav-hamburger" id="hamburger" onclick="toggleNav()" aria-label="메뉴 열기">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navLinks">
     <a onclick="showPage('home')" data-page="home" class="active">Home</a>
     <a onclick="showPage('about')" data-page="about">About</a>
     <a onclick="showPage('cv')" data-page="cv">CV</a>
@@ -177,11 +220,11 @@ footer{background:var(--navy);border-top:2px solid rgba(181,146,42,.3);padding:3
     <div class="home-bio-inner">
       <div class="bio-col">
         <div class="bio-col-label">About</div>
-        <div class="bio-col-text"><p>I am an Assistant Professor of Korean Linguistics at Dongguk University.</p><p>My passion for the Korean language began early in life and led me to pursue a career in studying and teaching Korean linguistics.</p><p>I have long been interested in how language reflects thought, culture, and human interaction.</p><p>Through the study of Korean, I seek to better understand Korean language and culture, and ultimately gain deeper insights into human communication and understanding.</p></div>
+        <div class="bio-col-text"><p>I am an Assistant Professor of Korean Linguistics at Dongguk University.</p><p>My passion for the Korean language began early in life and led me to pursue a career in studying and teaching Korean linguistics.</p><p>I have long been interested in how language reflects thought, culture, and human interaction.</p><p>Through the study of Korean, I seek to better understand the Korean language and culture, and ultimately gain deeper insights into human communication and understanding.</p></div>
       </div>
       <div class="bio-col">
         <div class="bio-col-label">Research</div>
-        <div class="bio-col-text"><p>My research lies at the intersection of Korean linguistics, formal semantics, discourse pragmatics, and artificial intelligence.</p><p>I am particularly interested in how linguistic meaning is constructed and interpreted in Korean, focusing on syntax–semantics interfaces, modality, tense and aspect, discourse interpretation, and expressive meaning.</p><p>A central goal of my research is to investigate Korean language understanding from both theoretical and empirical perspectives.</p><p>My recent work explores emotional meaning, discourse, and temporal interpretation in Korean.</p><p>More recently, I have become interested in AI-based approaches to Korean linguistics, particularly how large language models (LLMs) understand, generate, and structure Korean language.</p></div>
+        <div class="bio-col-text"><p>My research lies at the intersection of syntax and semantics, with a particular focus on the syntax–semantics interface in Korean.</p><p>I am particularly interested in how linguistic meaning is constructed and interpreted in Korean, focusing on modality, tense and aspect, discourse interpretation, and expressive meaning.</p><p>A central goal of my research is to investigate Korean language understanding from both theoretical and empirical perspectives.</p><p>More recently, I have become interested in AI-based approaches to Korean linguistics, particularly how large language models (LLMs) understand, generate, and structure Korean language.</p></div>
       </div>
       <div class="bio-col">
         <div class="bio-col-label">Teaching &amp; Being Taught</div>
@@ -189,7 +232,7 @@ footer{background:var(--navy);border-top:2px solid rgba(181,146,42,.3);padding:3
       </div>
     </div>
   </div>
-<footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 조교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
+<footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
 </div>
 <div id="page-about" class="page"><div class="inner-page">
 <div class="section-header"><span class="section-title">About</span></div>
@@ -197,15 +240,15 @@ footer{background:var(--navy);border-top:2px solid rgba(181,146,42,.3);padding:3
 <div>
 <div class="subsection-label">Professional Experience</div>
 <div class="timeline">
-<div class="timeline-item"><div class="timeline-year">2025.9 – 현재</div><div><div class="timeline-role">조교수</div><div class="timeline-place">동국대학교 국어국문문예창작학부</div></div></div>
-<div class="timeline-item"><div class="timeline-year">2024.6 – 2025.8</div><div><div class="timeline-role">학술연구교수</div><div class="timeline-place">서강대학교 언어정보연구소</div></div></div>
-<div class="timeline-item"><div class="timeline-year">2024.3 – 2025.8</div><div><div class="timeline-role">대우교수</div><div class="timeline-place">서울사이버대학교 한국어문화학과</div></div></div>
-<div class="timeline-item"><div class="timeline-year">2022.9 – 2025.8</div><div><div class="timeline-role">강사</div><div class="timeline-place">서강대학교 국어국문학과</div></div></div>
-<div class="timeline-item"><div class="timeline-year">2022.9 – 2024.8</div><div><div class="timeline-role">강사</div><div class="timeline-place">가톨릭대학교 한국어교육융복합전공</div></div></div>
-<div class="timeline-item"><div class="timeline-year">2022.3 – 2024.8</div><div><div class="timeline-role">강사</div><div class="timeline-place">가천대학교 한국어문학과</div></div></div>
-<div class="timeline-item"><div class="timeline-year">2021.9 – 2022.6</div><div><div class="timeline-role">대우교수</div><div class="timeline-place">서강대학교 국어국문학과</div></div></div>
-<div class="timeline-item"><div class="timeline-year">2015.9 – 2019.12</div><div><div class="timeline-role">대우전임강사</div><div class="timeline-place">서강대학교 한국어교육원</div></div></div>
-<div class="timeline-item"><div class="timeline-year">2015.3 – 2016.2</div><div><div class="timeline-role">시간강사</div><div class="timeline-place">신안산대학교 교양과</div></div></div>
+<div class="timeline-item"><div class="timeline-year">2025.9 – 현재</div><div><div class="timeline-role">조교수 <span class="timeline-role-en">Assistant Professor</span></div><div class="timeline-place">동국대학교 국어국문문예창작학부</div></div></div>
+<div class="timeline-item"><div class="timeline-year">2024.6 – 2025.8</div><div><div class="timeline-role">학술연구교수 <span class="timeline-role-en">Research Professor</span></div><div class="timeline-place">서강대학교 언어정보연구소</div></div></div>
+<div class="timeline-item"><div class="timeline-year">2024.3 – 2025.8</div><div><div class="timeline-role">대우교수 <span class="timeline-role-en">Adjunct Professor</span></div><div class="timeline-place">서울사이버대학교 한국어문화학과</div></div></div>
+<div class="timeline-item"><div class="timeline-year">2022.9 – 2025.8</div><div><div class="timeline-role">강사 <span class="timeline-role-en">Lecturer</span></div><div class="timeline-place">서강대학교 국어국문학과</div></div></div>
+<div class="timeline-item"><div class="timeline-year">2022.9 – 2024.8</div><div><div class="timeline-role">강사 <span class="timeline-role-en">Lecturer</span></div><div class="timeline-place">가톨릭대학교 한국어교육융복합전공</div></div></div>
+<div class="timeline-item"><div class="timeline-year">2022.3 – 2024.8</div><div><div class="timeline-role">강사 <span class="timeline-role-en">Lecturer</span></div><div class="timeline-place">가천대학교 한국어문학과</div></div></div>
+<div class="timeline-item"><div class="timeline-year">2021.9 – 2022.6</div><div><div class="timeline-role">대우교수 <span class="timeline-role-en">Adjunct Professor</span></div><div class="timeline-place">서강대학교 국어국문학과</div></div></div>
+<div class="timeline-item"><div class="timeline-year">2015.9 – 2019.12</div><div><div class="timeline-role">대우전임강사 <span class="timeline-role-en">Full-time Lecturer</span></div><div class="timeline-place">서강대학교 한국어교육원</div></div></div>
+<div class="timeline-item"><div class="timeline-year">2015.3 – 2016.2</div><div><div class="timeline-role">시간강사 <span class="timeline-role-en">Part-time Lecturer</span></div><div class="timeline-place">신안산대학교 교양과</div></div></div>
 </div>
 <div style="margin-top:34px;"><div class="subsection-label">Academic Background</div>
 <div class="edu-list">
@@ -254,13 +297,13 @@ footer{background:var(--navy);border-top:2px solid rgba(181,146,42,.3);padding:3
 </div></div></div>
 </div>
 </div>
-</div><footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 조교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
+</div><footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
 </div>
 <div id="page-cv" class="page"><div class="inner-page" style="text-align:center;padding-top:120px;">
 <div class="section-title" style="margin-bottom:22px;">Curriculum Vitae</div>
 <p style="font-family:var(--serif-en);font-size:16px;color:var(--text-muted);font-style:italic;margin-bottom:30px;">Last updated: May 2026</p>
 <a href="cv_myeong_jeonghee.pdf" target="_blank" style="display:inline-block;font-family:var(--serif-en);font-size:15px;color:#fff;background:var(--navy);padding:11px 30px;border-radius:2px;text-decoration:none;letter-spacing:.04em;">Download CV (PDF)</a>
-</div><footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 조교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
+</div><footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
 </div>
 <div id="page-publications" class="page"><div class="inner-page">
 <div class="section-header"><span class="section-title">Publications</span></div>
@@ -316,7 +359,7 @@ footer{background:var(--navy);border-top:2px solid rgba(181,146,42,.3);padding:3
 </div>
 </div>
 </div>
-<footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 조교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
+<footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
 </div>
 
 <!-- BOOKS PAGE -->
@@ -342,7 +385,7 @@ footer{background:var(--navy);border-top:2px solid rgba(181,146,42,.3);padding:3
   </div>
 </div>
 </div>
-<footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 조교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
+<footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
 </div>
 
 <div id="page-talks" class="page"><div class="inner-page">
@@ -400,7 +443,7 @@ footer{background:var(--navy);border-top:2px solid rgba(181,146,42,.3);padding:3
 </div>
 </div>
 </div>
-<footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 조교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
+<footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
 </div>
 <div id="page-projects" class="page"><div class="inner-page">
 <div class="section-header"><span class="section-title">Projects</span></div>
@@ -418,7 +461,7 @@ footer{background:var(--navy);border-top:2px solid rgba(181,146,42,.3);padding:3
 <div class="project-item"><div class="project-bullet"></div><div class="project-body"><div class="project-title">20세기 한글 문헌의 자음 사용 양상 조사 연구</div><div class="project-meta">보조연구원 · 국립한글박물관, 2016</div></div></div>
 <div class="project-item"><div class="project-bullet"></div><div class="project-body"><div class="project-title">20세기 한글 관련 연구과제 개발을 위한 조사 연구</div><div class="project-meta">보조연구원 · 국립한글박물관, 2015</div></div></div>
 </div>
-<footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 조교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
+<footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
 </div>
 <div id="page-students" class="page"><div class="inner-page">
 <div class="section-header"><span class="section-title">Graduate Students</span></div>
@@ -427,13 +470,13 @@ footer{background:var(--navy);border-top:2px solid rgba(181,146,42,.3);padding:3
 <div class="student-card"><div class="student-name">곽진우</div><div class="student-degree">M.A. student · 동국대학교</div><div class="student-interest"><div class="student-interest-ko">화행 연구</div><div class="student-interest-en">Speech Act Theory</div></div></div>
 <div class="student-card"><div class="student-name">동백영</div><div class="student-degree">M.A. student · 동국대학교</div><div class="student-interest"><div class="student-interest-ko">반말체 종결어미 연구</div><div class="student-interest-en">Informal Speech Endings</div></div></div>
 <div class="student-card"><div class="student-name">라자르</div><div class="student-degree">M.A. student · 동국대학교</div><div class="student-interest"><div class="student-interest-ko">시제 연구</div><div class="student-interest-en">Tense</div></div></div>
-<div class="student-card"><div class="student-name">손효설</div><div class="student-degree">M.A. student · 동국대학교</div><div class="student-interest"><div class="student-interest-ko">중국어와 한국어의 명사구 대조 연구</div><div class="student-interest-en">NP Contrastive Studies: Chinese-Korean</div></div></div>
+<div class="student-card"><div class="student-name">손효설</div><div class="student-degree">M.A. student · 동국대학교</div><div class="student-interest"><div class="student-interest-ko">중국어 한국어 명사구 연구</div><div class="student-interest-en">NP Contrastive Studies: Chinese-Korean</div></div></div>
 <div class="student-card"><div class="student-name">아미라 카밀리아</div><div class="student-degree">M.A. student · 동국대학교</div><div class="student-interest"><div class="student-interest-ko">사과화행 연구</div><div class="student-interest-en">Apology Speech Acts</div></div></div>
 <div class="student-card"><div class="student-name">응웬팜탄응완</div><div class="student-degree">M.A. student · 동국대학교</div><div class="student-interest"><div class="student-interest-ko">베트남 결혼이주여성의 억양 연구</div><div class="student-interest-en">Intonation of Vietnamese Marriage Migrants</div></div></div>
 <div class="student-card"><div class="student-name">줄디즈</div><div class="student-degree">M.A. student · 동국대학교</div><div class="student-interest"><div class="student-interest-ko">카자흐어와 한국어 부정문 연구</div><div class="student-interest-en">Negation: Kazakh-Korean</div></div></div>
 </div>
 </div>
-<footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 조교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
+<footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
 </div>
 <div id="page-teaching" class="page"><div class="inner-page">
 <div class="section-header"><span class="section-title">Teaching</span></div>
@@ -448,20 +491,29 @@ footer{background:var(--navy);border-top:2px solid rgba(181,146,42,.3);padding:3
 <div class="course-row"><div class="course-code">KOR6261-01</div><div class="course-body"><div class="course-name-ko">디지털시대의 규범문법</div><div class="course-name-en">Normative Grammar in the Digital Age</div></div><a class="syllabus-link" href="syllabus_KOR6261.pdf" target="_blank">Syllabus</a></div>
 </div>
 <p style="font-size:14px;color:var(--text-faint);font-family:var(--serif-en);font-style:italic;">* Syllabus PDF files will be linked when available. 실라버스 PDF는 업로드 후 연결됩니다.</p>
-</div><footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 조교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
+</div><footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
 </div>
 <div id="page-blog" class="page"><div class="inner-page" style="text-align:center;padding-top:120px;">
 <div class="section-title" style="margin-bottom:22px;">Blog</div>
 <p style="font-family:var(--serif-en);font-size:16px;color:var(--text-muted);font-style:italic;">Coming soon. Thoughts on linguistics and language.<br>블로그는 준비 중입니다.</p>
-</div><footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 조교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
+</div><footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
 </div>
 <script>
+function toggleNav(){
+  var h=document.getElementById('hamburger');
+  var n=document.getElementById('navLinks');
+  h.classList.toggle('open');
+  n.classList.toggle('open');
+}
 function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   var lnk=document.querySelector('.nav-links a[data-page="'+id+'"]');
   if(lnk)lnk.classList.add('active');
+  // 모바일 메뉴 닫기
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('navLinks').classList.remove('open');
   window.scrollTo(0,0);
 }
 function filterPubs(type,btn){
